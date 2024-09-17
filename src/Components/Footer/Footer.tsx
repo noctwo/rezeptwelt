@@ -1,3 +1,5 @@
+import "./Footer.css"
+
 const Footer = () => {
     return ( 
         <footer>
@@ -6,9 +8,16 @@ const Footer = () => {
             </div>
             <div className="social-container">
                 <h2>Connect with us</h2>
+                <div className="social-icons-container">
+                    <div className="social-icons-icon-container">
                 <img src="youtube-social.png" alt="youtube icon" />
-                <img src="twitter-social.png" alt="twitter icon" />
+                </div>
+                <div className="social-icons-icon-container">
+                <img src="twitter-social.png" alt="twitter icon" /></div>
+                <div className="social-icons-icon-container">
                 <img src="pinterest-social.png" alt="pinterest icon" />
+                </div>
+                </div>
             </div> 
         </footer>
 
