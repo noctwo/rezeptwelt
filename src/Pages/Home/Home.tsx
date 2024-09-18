@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabaseClient } from "../../lib/supabaseClient";
 import "./Home.css"
 import { Recipes } from "../../Types/supabase-own-types";
+import Popular from "../../Components/Popular/Popular";
 
 
 const Home = () => {
@@ -38,6 +39,7 @@ const Home = () => {
 
     return ( 
     <main>
+        <Popular />
         <div className="searchbar-container">
             <input type="text" id="recipe-search-input" placeholder="Nach Rezepten suchen..." value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} />
         </div>
