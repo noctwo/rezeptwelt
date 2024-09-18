@@ -13,7 +13,7 @@ const Home = () => {
 
     useEffect(() => {
         const fetchRecipes = async () => {
-            let selectQuery = supabaseClient.from("Recipes").select("*");
+            let selectQuery = supabaseClient.from("Recipes").select("*").order("created_at", {ascending:false});
 
             if(searchTerm){
                 selectQuery = selectQuery.ilike("name", `%${searchTerm}`)
@@ -43,9 +43,10 @@ const Home = () => {
         <div className="searchbar-container">
             <input type="text" id="recipe-search-input" placeholder="Nach Rezepten suchen..." value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} />
         </div>
-        <p>{noSearchResultText}</p>
         {!recipes? <p>Sorry, no recipes found.</p> :
         <div className="show-recipe-container">
+            <h2>{!searchTerm? "Neueste Rezepte" : "Deine Suchergebnisse"}</h2>
+            <p>{noSearchResultText}</p>
     {recipes?.map((recipe) => (
         <div className="recipe-card" key={recipe.id}>
         <img src={`${recipe.img_url}`} />
