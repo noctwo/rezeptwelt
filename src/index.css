@@ -9,6 +9,7 @@
   --rw-lightyellow: #FFE9A1;
   --rw-darkyellow: #FFDB63;
   --rw-default-text: #2c2b2b;
+  --rw-default-light-gray: #F5F2F2;
 }
 
 *{
@@ -28,4 +29,18 @@ h1, h2, h3, h4 {
 
 img{
   max-width: 100%;
+}
+
+button{
+  background-color: var(--rw-darkyellow);
+  color: var(--rw-default-text);
+  padding: 1em 2em;
+  border-radius: 16px;
+  border: none;
+  font-weight: bold;
+}
+
+button:hover{
+  cursor: pointer;
+  background-color: var(--rw-lightyellow);
 }

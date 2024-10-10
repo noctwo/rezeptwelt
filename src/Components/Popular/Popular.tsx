@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabaseClient } from "../../lib/supabaseClient";
 import { Recipes } from "../../Types/supabase-own-types";
+import "./Popular.css"
 
 
 const Popular = () => {
@@ -26,9 +27,15 @@ const Popular = () => {
         <div className="popular-container">
             {popularRecipes?.map((recipe) =>
             <div className="popular-card" key={recipe.id}>
+                <div className="popular-card-img-container">
                 <img src={`${recipe.img_url}`} />
-                <p>{recipe.name}</p>
+                </div>
+                <div className="popular-card-text-container">
+                <h2>{recipe.name}</h2>
                 <p>Rating: {recipe.rating}</p>
+                <p>{recipe.description}</p>
+                <button className="btn see-more-btn">zum Rezept</button>
+                </div>
             </div>
             )}
         </div>
