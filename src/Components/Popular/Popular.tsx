@@ -25,19 +25,22 @@ const Popular = () => {
 
     return ( 
         <div className="popular-container">
+            <h2>Beliebte Rezepte</h2>
+            <div className="popular-cards-container">
             {popularRecipes?.map((recipe) =>
             <div className="popular-card" key={recipe.id}>
                 <div className="popular-card-img-container">
                 <img src={`${recipe.img_url}`} />
                 </div>
                 <div className="popular-card-text-container">
-                <h2>{recipe.name}</h2>
+                <h3>{recipe.name}</h3>
                 <p>Rating: {recipe.rating}</p>
                 <p>{recipe.description}</p>
                 <button className="btn see-more-btn">zum Rezept</button>
                 </div>
             </div>
             )}
+            </div>
         </div>
      );
 }

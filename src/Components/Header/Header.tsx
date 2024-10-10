@@ -15,7 +15,7 @@ const Header = () => {
             </div>
         </nav>
         <div className="hero-img-container">
-            <img src="hero-img-01.jpg" alt="hero image" />
+            <img src="hero-img-05.jpg" alt="hero image" />
         </div>
     </header>
     );

@@ -1,4 +1,8 @@
-.popular-container{
+.popular-container h2{
+    text-align: center;
+}
+
+.popular-cards-container{
     display: flex;
     justify-content: space-between;
     padding: 5em;

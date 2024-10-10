@@ -16,7 +16,7 @@ const Home = () => {
             let selectQuery = supabaseClient.from("Recipes").select("*").order("created_at", {ascending:false});
 
             if(searchTerm){
-                selectQuery = selectQuery.ilike("name", `%${searchTerm}`)
+                selectQuery = selectQuery.ilike("name", `%${searchTerm}%`)
             }
 
             const result = await selectQuery;
@@ -40,18 +40,25 @@ const Home = () => {
     return ( 
     <main>
         <Popular />
-        <div className="searchbar-container">
-            <input type="text" id="recipe-search-input" placeholder="Nach Rezepten suchen..." value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} />
-        </div>
+        
         {!recipes? <p>Sorry, no recipes found.</p> :
         <div className="show-recipe-container">
             <h2>{!searchTerm? "Neueste Rezepte" : "Deine Suchergebnisse"}</h2>
-            <p>{noSearchResultText}</p>
+            <p className="no-search-results-text">{noSearchResultText}</p>
+            <div className="searchbar-container">
+            <input type="text" id="recipe-search-input" placeholder="Nach Rezepten suchen..." value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} />
+        </div>
     {recipes?.map((recipe) => (
-        <div className="recipe-card" key={recipe.id}>
+        <div className="recipe-card-horizontal" key={recipe.id}>
+        <div className="recipe-card-horizontal-img-container">
         <img src={`${recipe.img_url}`} />
-        <p>{recipe.name}</p>
-        
+        </div>
+        <div className="recipe-card-horizontal-text-container">
+        <h3>{recipe.name}</h3>
+        <p>Rating: {recipe.rating}</p>
+        <p>{recipe.description}</p>
+        <button className="btn see-more-btn">zum Rezept</button>
+        </div>
         </div>
     ))}
     </div>
