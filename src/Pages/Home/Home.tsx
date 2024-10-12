@@ -57,7 +57,7 @@ const Home = () => {
         <div className="recipe-card-horizontal-text-container">
         <h3>{recipe.name}</h3>
         <p>Rating: {recipe.rating}</p>
-        <p>{recipe.description.slice(0, 250)} ...</p>
+        <p>{recipe.description.split(" ").slice(0,30).join(" ")} ...</p>
         <button className="btn see-more-btn">zum Rezept</button>
         </div>
         </div>

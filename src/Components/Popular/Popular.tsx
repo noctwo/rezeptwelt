@@ -35,7 +35,7 @@ const Popular = () => {
                 <div className="popular-card-text-container">
                 <h3>{recipe.name}</h3>
                 <p>Rating: {recipe.rating}</p>
-                <p>{recipe.description.slice(0, 150)} ...</p>
+                <p>{recipe.description.split(" ").slice(0,25).join(" ")} ...</p>
                 <button className="btn see-more-btn">zum Rezept</button>
                 </div>
             </div>
