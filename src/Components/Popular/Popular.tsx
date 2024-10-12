@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabaseClient } from "../../lib/supabaseClient";
 import { Recipes } from "../../Types/supabase-own-types";
 import "./Popular.css"
+import { Link } from "react-router-dom";
 
 
 const Popular = () => {
@@ -36,13 +37,15 @@ const Popular = () => {
                 <h3>{recipe.name}</h3>
                 <p>Rating: {recipe.rating}</p>
                 <p>{recipe.description.split(" ").slice(0,25).join(" ")} ...</p>
+                <Link to={`/recipe/${recipe.id}`}>
                 <button className="btn see-more-btn">zum Rezept</button>
+                </Link>
                 </div>
             </div>
             )}
             </div>
         </div>
-     );
+    );
 }
 
 export default Popular;

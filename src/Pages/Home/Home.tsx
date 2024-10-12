@@ -3,7 +3,7 @@ import { supabaseClient } from "../../lib/supabaseClient";
 import "./Home.css"
 import { Recipes } from "../../Types/supabase-own-types";
 import Popular from "../../Components/Popular/Popular";
-
+import { Link } from "react-router-dom";
 
 const Home = () => {
 
@@ -58,7 +58,9 @@ const Home = () => {
         <h3>{recipe.name}</h3>
         <p>Rating: {recipe.rating}</p>
         <p>{recipe.description.split(" ").slice(0,30).join(" ")} ...</p>
+        <Link to={`/recipe/${recipe.id}`}>
         <button className="btn see-more-btn">zum Rezept</button>
+        </Link>
         </div>
         </div>
     ))}

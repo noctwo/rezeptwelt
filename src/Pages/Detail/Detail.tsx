@@ -1,9 +1,44 @@
+import { useParams } from "react-router-dom";
 import "./Detail.css"
+import { supabaseClient } from "../../lib/supabaseClient";
+import { useEffect, useState } from "react";
+import { Recipes } from "../../Types/supabase-own-types";
 
 const Detail = () => {
+
+    const {id} = useParams<{id:string}>();
+    const [singleRecipe, setSingleRecipe] = useState<Recipes>();
+
+    useEffect(() => {
+        const fetchSingleRecipe = async () => {
+            if (!id){
+                console.error("No Recipe ID given");
+                return;
+            }
+
+            const supabaseResponse = await supabaseClient
+            .from("Recipes")
+            .select("*")
+            .eq("id", id)
+            .single();
+
+            if (supabaseResponse.error){
+                console.error("Recipe not found in Database", supabaseResponse.error);
+                return;
+            }
+
+            if (supabaseResponse.data) {
+                setSingleRecipe(supabaseResponse.data);
+                console.log(supabaseResponse.data)
+            }
+        };
+        fetchSingleRecipe();
+    }, [])
+
     return ( 
         <div className="detail-container">
         <p>hello from detail</p>
+        <h2>{singleRecipe?.name}</h2>
         </div>
     );
 }
