@@ -5,7 +5,7 @@
 .popular-cards-container{
     display: flex;
     justify-content: space-between;
-    padding: 5em;
+    padding: 3em;
 }
 
 .popular-card{
