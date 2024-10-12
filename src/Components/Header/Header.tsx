@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Header.css"
 
 const Header = () => {
@@ -5,11 +6,13 @@ const Header = () => {
 
     <header>
         <nav>
+            <Link to={"/"}>
             <div className="header-logo">
                 <img src="Logo.svg" alt="company logo"/>
             </div>
+            </Link>
             <div className="nav-link-container">
-            <a href="#">Home</a>
+            <Link to={"/"}>Home</Link>
             <a href="#">Rezepte</a>
             <a href="#">Ueber uns</a>
             </div>
@@ -19,7 +22,3 @@ const Header = () => {
 }
 
 export default Header;
-
-
-
-{/* Header empfaengt props und zeigt entweder prop img und proptext auf detailpage an oder standard header img und text*/}

@@ -38,7 +38,7 @@ const Detail = () => {
 
     return (
         <div className="detail-page-wrapper"> 
-        <Hero />
+        <Hero imageUrl={singleRecipe?.img_url}/>
         <div className="detail-container">
         <p>hello from detail</p>
         <h2>{singleRecipe?.name}</h2>
