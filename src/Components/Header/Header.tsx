@@ -14,9 +14,6 @@ const Header = () => {
             <a href="#">Ueber uns</a>
             </div>
         </nav>
-        <div className="hero-img-container">
-            <img src="hero-img-05.jpg" alt="hero image" />
-        </div>
     </header>
     );
 }

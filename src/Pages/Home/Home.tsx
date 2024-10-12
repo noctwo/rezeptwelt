@@ -4,6 +4,7 @@ import "./Home.css"
 import { Recipes } from "../../Types/supabase-own-types";
 import Popular from "../../Components/Popular/Popular";
 import { Link } from "react-router-dom";
+import Hero from "../../Components/Hero/Hero";
 
 const Home = () => {
 
@@ -39,6 +40,7 @@ const Home = () => {
 
     return ( 
     <main>
+        <Hero />
         <div className="content-wrapper">
         <Popular />
         

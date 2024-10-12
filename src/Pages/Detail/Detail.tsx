@@ -3,6 +3,7 @@ import "./Detail.css"
 import { supabaseClient } from "../../lib/supabaseClient";
 import { useEffect, useState } from "react";
 import { Recipes } from "../../Types/supabase-own-types";
+import Hero from "../../Components/Hero/Hero";
 
 const Detail = () => {
 
@@ -35,10 +36,13 @@ const Detail = () => {
         fetchSingleRecipe();
     }, [])
 
-    return ( 
+    return (
+        <div className="detail-page-wrapper"> 
+        <Hero />
         <div className="detail-container">
         <p>hello from detail</p>
         <h2>{singleRecipe?.name}</h2>
+        </div>
         </div>
     );
 }

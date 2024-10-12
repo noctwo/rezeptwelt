@@ -1,6 +1,5 @@
 header{
     border-top: 10px solid var(--rw-lightyellow);
-    height: 40vh;
     display: flex;
     flex-direction: column;
 }
@@ -15,16 +14,4 @@ nav{
 .nav-link-container{
     display: flex;
     gap: 2em;
-}
-
-.hero-img-container{
-    width: 100%;
-    height: 100%;
-
-}
-
-.hero-img-container img{
-    width: 100%;
-    height: 30vh;
-    object-fit: cover;
 }
