@@ -29,41 +29,81 @@ export type Database = {
       }
       Ingredients: {
         Row: {
-          additional_info: string
+          additionalInfo: string | null
           created_at: string
-          id: number
+          id: string
           name: string
           quantity: number
           recipe_id: string
           unit: string
         }
         Insert: {
-          additional_info: string
-          created_at?: string
-          id?: number
+          additionalInfo?: string | null
+          created_at: string
+          id: string
           name: string
           quantity: number
           recipe_id: string
           unit: string
         }
         Update: {
-          additional_info?: string
+          additionalInfo?: string | null
           created_at?: string
-          id?: number
+          id?: string
           name?: string
           quantity?: number
           recipe_id?: string
           unit?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "Ingredients_recipe_id_fkey"
-            columns: ["recipe_id"]
-            isOneToOne: false
-            referencedRelation: "Recipes"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
+      }
+      Instructions: {
+        Row: {
+          created_at: string
+          id: string
+          recipe_id: string
+          step_eight: string | null
+          step_five: string | null
+          step_four: string | null
+          step_nine: string | null
+          step_one: string | null
+          step_seven: string | null
+          step_six: string | null
+          step_ten: string | null
+          step_three: string | null
+          step_two: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          recipe_id: string
+          step_eight?: string | null
+          step_five?: string | null
+          step_four?: string | null
+          step_nine?: string | null
+          step_one?: string | null
+          step_seven?: string | null
+          step_six?: string | null
+          step_ten?: string | null
+          step_three?: string | null
+          step_two?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          recipe_id?: string
+          step_eight?: string | null
+          step_five?: string | null
+          step_four?: string | null
+          step_nine?: string | null
+          step_one?: string | null
+          step_seven?: string | null
+          step_six?: string | null
+          step_ten?: string | null
+          step_three?: string | null
+          step_two?: string | null
+        }
+        Relationships: []
       }
       Recipes: {
         Row: {

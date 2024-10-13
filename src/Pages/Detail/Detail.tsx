@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Recipes } from "../../Types/supabase-own-types";
 import Hero from "../../Components/Hero/Hero";
 import Ingredientsbar from "../../Components/Ingredients/Ingredientsbar";
+import InstructionsList from "../../Components/Instructions/InstructionsList";
 
 const Detail = () => {
 
@@ -45,8 +46,8 @@ const Detail = () => {
         <div className="detail-text-container">
         <h2>{singleRecipe?.name}</h2>
         <p>{singleRecipe?.description}</p>
-        <h3>...und so gehts:</h3>
         <p>{singleRecipe?.instructions}</p>
+        <InstructionsList />
         </div>
         <Ingredientsbar />
         </div>
