@@ -29,7 +29,9 @@ const Popular = () => {
             <h2>Beliebte Rezepte</h2>
             <div className="popular-cards-container">
             {popularRecipes?.map((recipe) =>
+                
             <div className="popular-card" key={recipe.id}>
+                <Link to={`/recipe/${recipe.id}`}>
                 <div className="popular-card-img-container">
                 <img src={`${recipe.img_url}`} />
                 </div>
@@ -37,10 +39,11 @@ const Popular = () => {
                 <h3>{recipe.name}</h3>
                 <p>Rating: {recipe.rating}</p>
                 <p>{recipe.description.split(" ").slice(0,25).join(" ")} ...</p>
-                <Link to={`/recipe/${recipe.id}`}>
+                
                 <button className="btn see-more-btn">zum Rezept</button>
-                </Link>
+                
                 </div>
+                </Link>
             </div>
             )}
             </div>

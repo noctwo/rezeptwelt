@@ -39,9 +39,13 @@ const Detail = () => {
     return (
         <div className="detail-page-wrapper"> 
         <Hero imageUrl={singleRecipe?.img_url}/>
+        <div className="content-wrapper">
         <div className="detail-container">
-        <p>hello from detail</p>
         <h2>{singleRecipe?.name}</h2>
+        <p>{singleRecipe?.description}</p>
+        <h3>...und so gehts:</h3>
+        <p>{singleRecipe?.instructions}</p>
+        </div>
         </div>
         </div>
     );

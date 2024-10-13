@@ -52,7 +52,9 @@ const Home = () => {
             <input type="text" id="recipe-search-input" placeholder="Nach Rezepten suchen..." value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} />
         </div>
     {recipes?.map((recipe) => (
+        <Link to={`/recipe/${recipe.id}`}>
         <div className="recipe-card-horizontal" key={recipe.id}>
+            
         <div className="recipe-card-horizontal-img-container">
         <img src={`${recipe.img_url}`} />
         </div>
@@ -60,11 +62,11 @@ const Home = () => {
         <h3>{recipe.name}</h3>
         <p>Rating: {recipe.rating}</p>
         <p>{recipe.description.split(" ").slice(0,30).join(" ")} ...</p>
-        <Link to={`/recipe/${recipe.id}`}>
+        
         <button className="btn see-more-btn">zum Rezept</button>
+        </div>
+        </div>
         </Link>
-        </div>
-        </div>
     ))}
     </div>
     }</div>
