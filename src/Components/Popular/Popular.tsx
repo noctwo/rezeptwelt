@@ -18,18 +18,19 @@ const Popular = () => {
             if (result.error){
                 console.error(result.error);
             } else{
-                setPopularRecipes(result.data);
+                setPopularRecipes(result.data)
             }
         }
         fetchPopularRecipes();
     }, [])
+
+
 
     return ( 
         <div className="popular-container">
             <h2>Beliebte Rezepte</h2>
             <div className="popular-cards-container">
             {popularRecipes?.map((recipe) =>
-                
             <div className="popular-card" key={recipe.id}>
                 <Link to={`/recipe/${recipe.id}`}>
                 <div className="popular-card-img-container">

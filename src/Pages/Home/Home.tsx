@@ -52,8 +52,8 @@ const Home = () => {
             <input type="text" id="recipe-search-input" placeholder="Nach Rezepten suchen..." value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} />
         </div>
     {recipes?.map((recipe) => (
-        <Link to={`/recipe/${recipe.id}`}>
-        <div className="recipe-card-horizontal" key={recipe.id}>
+        <Link to={`/recipe/${recipe.id}`} key={recipe.id}>
+        <div className="recipe-card-horizontal">
             
         <div className="recipe-card-horizontal-img-container">
         <img src={`${recipe.img_url}`} />
