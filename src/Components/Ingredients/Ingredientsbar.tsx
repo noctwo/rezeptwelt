@@ -40,7 +40,7 @@ const Ingredientsbar = () => {
         <div className="ingredients-sidebar">
             <h3>Zutatenliste</h3>
             {singleIngredients?.map((ingredient) =>(
-                <p key={ingredient.id}>{ingredient.name}</p>
+                <p key={ingredient.id}><span className="ingredient-name">{ingredient.name}</span><span className="ingredient-quantity">{ingredient.quantity} {ingredient.unit}</span></p>
             ))}
             
         </div>
