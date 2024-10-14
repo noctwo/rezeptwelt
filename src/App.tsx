@@ -4,18 +4,24 @@ import Footer from './Components/Footer/Footer'
 import Header from './Components/Header/Header'
 import Home from './Pages/Home/Home'
 import Detail from './Pages/Detail/Detail'
+import LoginPage from './Pages/LoginPage/LoginPage'
+import { UserProvider } from './Context/UserContext'
+
 
 function App() {
 
   return (
+    <UserProvider>
     <BrowserRouter>
       <Header />
       <Routes>
+      <Route path="/login" element={<LoginPage/>}/>
       <Route path="/" element={<Home />} />
       <Route path="/recipe/:id" element ={<Detail />} />
       </Routes>
       <Footer />
     </BrowserRouter>
+    </UserProvider>
   )
 }
 
