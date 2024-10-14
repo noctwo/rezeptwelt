@@ -67,21 +67,22 @@ const handleResetPassword = async (e: React.MouseEvent) => {
 };
 
 return (
+    <div className="content-wrapper">
     <div className="login-container">
     <form className="login-form" onSubmit={handleLogin}>
-        <h2>Login to your account</h2>
+        <h2>In deinen Account einloggen</h2>
         <input
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder="Enter your email"
+        placeholder="E-Mail Adresse"
         required
         />
         <input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        placeholder="Enter your password"
+        placeholder="Passwort"
         required
         />
         {errorMessage && <p className="error-message">{errorMessage}</p>}
@@ -89,12 +90,13 @@ return (
         <button type="submit">Login</button>
     </form>
     <div className="reset-password-container">
-        <button className="additional-button" onClick={handleResetPassword}>
-        Forgot your password?
+        <button onClick={handleResetPassword}>
+        Passwort vergessen?
         </button>
-        <button className="additional-button" onClick={() => navigate('/signup')}>
-        Sign Up
+        <button onClick={() => navigate('/signup')}>
+        Registrieren
         </button>
+    </div>
     </div>
     </div>
 );

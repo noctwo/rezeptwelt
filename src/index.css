@@ -48,4 +48,5 @@ button:hover{
 .content-wrapper{
   max-width: 80vw;
   margin: 0 auto 5em auto;
+  min-height: 75vh;
 }
