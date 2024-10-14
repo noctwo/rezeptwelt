@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabaseClient } from "../../lib/supabaseClient";
-import { Recipes } from "../../Types/supabase-own-types";
+import { Categories, Recipes } from "../../Types/supabase-own-types";
 import "./Popular.css"
 import { Link } from "react-router-dom";
 
@@ -8,10 +8,15 @@ import { Link } from "react-router-dom";
 const Popular = () => {
 
     const [popularRecipes, setPopularRecipes] = useState<Recipes[]>();
+    const [categories, setCategories] = useState<Categories[]>();
 
     useEffect(() => {
         const fetchPopularRecipes = async () => {
-            let popularQuery = supabaseClient.from("Recipes").select("*").eq("rating", 5).limit(3);
+            let popularQuery = supabaseClient
+            .from("Recipes")
+            .select(`*, Categories(name)`)
+            .eq("rating", 5)
+            .limit(3);
 
             const result = await popularQuery;
 
@@ -23,6 +28,28 @@ const Popular = () => {
         }
         fetchPopularRecipes();
     }, [])
+
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            const categoriesQuery = await supabaseClient
+                .from("Categories")
+                .select("*");
+
+            if (categoriesQuery.error) {
+                console.error(categoriesQuery.error);
+            } else {
+                setCategories(categoriesQuery.data);
+            }
+        };
+        fetchCategories();
+    }, []);
+
+    // Funktion, um die Kategorie anhand der ID zu finden
+    const getCategoryName = (categoryId: string | undefined) => {
+        const category = categories?.find(cat => cat.id === categoryId);
+        return category ? category.name : "Unbekannt";
+    };
 
 
 
@@ -39,6 +66,7 @@ const Popular = () => {
                 <div className="popular-card-text-container">
                 <h3>{recipe.name}</h3>
                 <p>Rating: {recipe.rating}</p>
+                <p>Kategorie: {getCategoryName(recipe.category_id)}</p>
                 <p>{recipe.description.split(" ").slice(0,25).join(" ")} ...</p>
                 
                 <button className="btn see-more-btn">zum Rezept</button>
