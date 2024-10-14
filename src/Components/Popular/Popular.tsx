@@ -45,7 +45,7 @@ const Popular = () => {
         fetchCategories();
     }, []);
 
-    // Funktion, um die Kategorie anhand der ID zu finden
+
     const getCategoryName = (categoryId: string | undefined) => {
         const category = categories?.find(cat => cat.id === categoryId);
         return category ? category.name : "Unbekannt";

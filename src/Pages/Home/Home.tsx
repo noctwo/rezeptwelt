@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabaseClient } from "../../lib/supabaseClient";
 import "./Home.css"
-import { Recipes } from "../../Types/supabase-own-types";
+import { Categories, Recipes } from "../../Types/supabase-own-types";
 import Popular from "../../Components/Popular/Popular";
 import { Link } from "react-router-dom";
 import Hero from "../../Components/Hero/Hero";
@@ -11,6 +11,7 @@ const Home = () => {
     const [recipes, setRecipes] = useState<Recipes[]>();
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [noSearchResultText, setNoSearchResultText] = useState<string>("");
+    const [categories, setCategories] = useState<Categories[]>();
 
     useEffect(() => {
         const fetchRecipes = async () => {
@@ -38,6 +39,27 @@ const Home = () => {
         
     }, [searchTerm]);
 
+    useEffect(() => {
+        const fetchCategories = async () => {
+            const categoriesQuery = await supabaseClient
+                .from("Categories")
+                .select("*");
+
+            if (categoriesQuery.error) {
+                console.error(categoriesQuery.error);
+            } else {
+                setCategories(categoriesQuery.data);
+            }
+        };
+        fetchCategories();
+    }, []);
+
+
+    const getCategoryName = (categoryId: string | undefined) => {
+        const category = categories?.find(cat => cat.id === categoryId);
+        return category ? category.name : "Unbekannt";
+    };
+
     return ( 
     <main>
         <Hero />
@@ -61,6 +83,7 @@ const Home = () => {
         <div className="recipe-card-horizontal-text-container">
         <h3>{recipe.name}</h3>
         <p>Rating: {recipe.rating}</p>
+        <p>Kategorie: {getCategoryName(recipe.category_id)}</p>
         <p>{recipe.description.split(" ").slice(0,30).join(" ")} ...</p>
         
         <button className="btn see-more-btn">zum Rezept</button>
