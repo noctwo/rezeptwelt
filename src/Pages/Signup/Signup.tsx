@@ -22,13 +22,6 @@ const Signup = () => {
     const signupResponse = await supabaseClient.auth.signUp({
         email,
         password,
-        options: {
-            data: {
-                first_name: firstName,
-                last_name: lastName,
-                favorite_food: favoriteFood
-            }
-        }
     });
 
     if (signupResponse.error){
