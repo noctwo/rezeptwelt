@@ -3,6 +3,7 @@ import "./Footer.css"
 const Footer = () => {
     return ( 
         <footer>
+            <div className="footer-content-wrapper">
             <div className="logo-container">
                 <img src="Logo.svg" alt="company logo"/>
             </div>
@@ -16,6 +17,7 @@ const Footer = () => {
                 <img src="twitter-social.png" alt="twitter icon" /></div>
                 <div className="social-icons-icon-container">
                 <img src="pinterest-social.png" alt="pinterest icon" />
+                </div>
                 </div>
                 </div>
             </div> 

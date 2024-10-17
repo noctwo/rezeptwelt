@@ -1,18 +1,25 @@
 footer{
     background-color: var(--rw-lightyellow);
     display: flex;
-    height: 10vh;
+    height: 20vh;
+}
+
+.footer-content-wrapper{
+    width: 75vw;
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
 }
 
 .logo-container{
-    width: 60%;
+
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .social-container{
-    width: 40%;
+
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -62,7 +62,7 @@ const handleResetPassword = async (e: React.MouseEvent) => {
     }
 
     if (resetResponse.data) {
-    setSuccessMessage('Password reset link has been sent to your email.');
+    setSuccessMessage('Passwort-Reset Link wurde an deine E-Mail gesendet.');
     }
 };
 

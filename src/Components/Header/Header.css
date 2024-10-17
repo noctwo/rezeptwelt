@@ -6,12 +6,18 @@ header{
 
 nav{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     padding: 1em 0;
+    width: 75vw;
+    margin: 0 auto;
 }
 
 .nav-link-container{
     display: flex;
     gap: 2em;
+}
+
+.logout-button{
+    margin-left: 1em;
 }
