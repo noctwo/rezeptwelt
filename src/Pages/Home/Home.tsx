@@ -1,17 +1,23 @@
 import { useEffect, useState } from "react";
 import { supabaseClient } from "../../lib/supabaseClient";
 import "./Home.css"
-import { Categories, Recipes } from "../../Types/supabase-own-types";
+import { Categories, RecipesWithFavorites } from "../../Types/supabase-own-types";
 import Popular from "../../Components/Popular/Popular";
 import { Link } from "react-router-dom";
 import Hero from "../../Components/Hero/Hero";
+import { IoBookmarkOutline } from "react-icons/io5";
+import { IoBookmark } from "react-icons/io5";
+import { useUserContext } from "../../Context/UserContext";
 
 const Home = () => {
 
-    const [recipes, setRecipes] = useState<Recipes[]>();
+    const [recipes, setRecipes] = useState<RecipesWithFavorites[]>();
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [noSearchResultText, setNoSearchResultText] = useState<string>("");
     const [categories, setCategories] = useState<Categories[]>();
+
+    const userContext = useUserContext();
+    const user = userContext?.user;
 
     useEffect(() => {
         const fetchRecipes = async () => {
@@ -32,7 +38,10 @@ const Home = () => {
             if (result.error) {
                 console.error(result.error);
             } else {
-                setRecipes(result.data);
+                setRecipes(result.data.map(recipe => ({
+                    ...recipe,
+                    favorites: /*recipe.favorites || */[] 
+                })));
             }
         }
         fetchRecipes();
@@ -60,6 +69,60 @@ const Home = () => {
         return category ? category.name : "Unbekannt";
     };
 
+    const deleteFavorite = async (recipeID:string) => {
+
+        if (!user) {
+            console.error("User not found. Cannot delete favorite.");
+            return;
+        }
+
+        const favoritesDeleteResponse = await supabaseClient
+        .from("Favorites")
+        .delete()
+        .eq("recipe_id", recipeID)
+        .eq("user_id", user.id);
+
+        if (favoritesDeleteResponse.error) {
+            console.error("Error deleting Favorite", favoritesDeleteResponse.error.message);
+        } else {
+            setRecipes(
+                recipes?.map((recipe) => {
+                    const newFavoritesWithoutRecipe = recipe.favorites.filter((fav) => fav.recipe_id !== recipeID);
+                    return recipe.id === recipeID ? {...recipe, favorites: newFavoritesWithoutRecipe} : recipe;
+                })
+            )
+        }
+    }
+
+
+    const addFavorite = async (recipeId:string) => {
+
+        if (!user) {
+            console.error("User not found. Cannot add favorite.");
+            return;
+        }
+
+        const favoritesInsertResponse = await supabaseClient
+        .from("Favorites")
+        .insert({user_id: user?.id, recipe_id:recipeId});
+
+        if(favoritesInsertResponse.error){
+            console.error("Error setting Favorites", favoritesInsertResponse.error.message);
+            return;
+        } else{
+            setRecipes(
+                recipes?.map((recipe) => {
+                    if (recipe.id === recipeId){
+                        const updatedFavorites = [...recipe.favorites, {recipe_id: recipeId}];
+                        return {...recipe, favorites: updatedFavorites}
+                    }
+                    return recipe;
+                })
+            )
+        }
+    }
+
+    
     return ( 
     <main>
         <Hero />
@@ -74,22 +137,23 @@ const Home = () => {
             <input type="text" id="recipe-search-input" placeholder="Nach Rezepten suchen..." value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} />
         </div>
     {recipes?.map((recipe) => (
-        <Link to={`/recipe/${recipe.id}`} key={recipe.id}>
-        <div className="recipe-card-horizontal">
-            
+        <div className="recipe-card-horizontal" key={recipe.id}>
         <div className="recipe-card-horizontal-img-container">
+        <Link to={`/recipe/${recipe.id}`}>
         <img src={`${recipe.img_url}`} />
+        </Link>
         </div>
         <div className="recipe-card-horizontal-text-container">
         <h3>{recipe.name}</h3>
+        {user? <div className="favorite-icon-container">
+            {recipe.favorites.find((favorite) => favorite.recipe_id === recipe.id) ? (<IoBookmark onClick={() => deleteFavorite(recipe.id)} /> ): (<IoBookmarkOutline onClick={() => addFavorite(recipe.id)} />)}
+        </div> : <></>}
         <p>Rating: {recipe.rating}</p>
         <p>Kategorie: {getCategoryName(recipe.category_id)}</p>
         <p>{recipe.description.split(" ").slice(0,30).join(" ")} ...</p>
-        
         <button className="btn see-more-btn">zum Rezept</button>
         </div>
         </div>
-        </Link>
     ))}
     </div>
     }</div>
