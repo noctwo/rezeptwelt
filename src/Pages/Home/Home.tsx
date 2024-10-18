@@ -21,7 +21,13 @@ const Home = () => {
 
     useEffect(() => {
         const fetchRecipes = async () => {
-            let selectQuery = supabaseClient.from("Recipes").select("*").order("created_at", {ascending:false});
+            let selectQuery = supabaseClient
+            .from("Recipes")
+            .select(`
+                *,
+                Favorites (recipe_id, user_id)
+            `)
+            .order("created_at", {ascending:false});
 
             if(searchTerm){
                 selectQuery = selectQuery.ilike("name", `%${searchTerm}%`)
@@ -38,12 +44,9 @@ const Home = () => {
             if (result.error) {
                 console.error(result.error);
             } else {
-                setRecipes(result.data.map(recipe => ({
-                    ...recipe,
-                    favorites: /*recipe.favorites || */[] 
-                })));
+                setRecipes(result.data);
             }
-        }
+        };
         fetchRecipes();
         
     }, [searchTerm]);
@@ -87,7 +90,7 @@ const Home = () => {
         } else {
             setRecipes(
                 recipes?.map((recipe) => {
-                    const newFavoritesWithoutRecipe = recipe.favorites.filter((fav) => fav.recipe_id !== recipeID);
+                    const newFavoritesWithoutRecipe = recipe.Favorites.filter((fav) => fav.recipe_id !== recipeID);
                     return recipe.id === recipeID ? {...recipe, favorites: newFavoritesWithoutRecipe} : recipe;
                 })
             )
@@ -113,7 +116,7 @@ const Home = () => {
             setRecipes(
                 recipes?.map((recipe) => {
                     if (recipe.id === recipeId){
-                        const updatedFavorites = [...recipe.favorites, {recipe_id: recipeId}];
+                        const updatedFavorites = [...recipe.Favorites, {recipe_id: recipeId}];
                         return {...recipe, favorites: updatedFavorites}
                     }
                     return recipe;
@@ -146,7 +149,7 @@ const Home = () => {
         <div className="recipe-card-horizontal-text-container">
         <h3>{recipe.name}</h3>
         {user? <div className="favorite-icon-container">
-            {recipe.favorites.find((favorite) => favorite.recipe_id === recipe.id) ? (<IoBookmark onClick={() => deleteFavorite(recipe.id)} /> ): (<IoBookmarkOutline onClick={() => addFavorite(recipe.id)} />)}
+            {recipe.Favorites.find((favorite) => favorite.recipe_id === recipe.id) ? (<IoBookmark onClick={() => deleteFavorite(recipe.id)} /> ): (<IoBookmarkOutline onClick={() => addFavorite(recipe.id)} />)}
         </div> : <></>}
         <p>Rating: {recipe.rating}</p>
         <p>Kategorie: {getCategoryName(recipe.category_id)}</p>
